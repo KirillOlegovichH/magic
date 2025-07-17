@@ -163,7 +163,6 @@ function flickerLoop() {
   if (flickerPhase > 30) {
     flickerPhase = 0.01;
   }
-  console.log(flickerPhase, flicker)
   drawBall('', 0, true, flicker);
   requestAnimationFrame(flickerLoop);
 }
