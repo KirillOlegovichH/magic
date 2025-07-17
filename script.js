@@ -195,7 +195,7 @@ function redraw() {
   resizeCanvas();
   flickerActive = true;
   flickerLoop();
-}
+} 
 
 window.addEventListener('resize', () => {
   redraw();
