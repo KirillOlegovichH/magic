@@ -14,12 +14,10 @@ body {
 }
 
 #magic-ball {
-  margin-bottom: 20px;
   background: transparent;
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 90vw;
   max-width: 400px;
   height: auto;
 }
