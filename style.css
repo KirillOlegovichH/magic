@@ -33,6 +33,7 @@ body {
   opacity: 0;
   word-break: break-word;
   max-width: 95vw;
+  text-shadow: rgb(69, 35, 205) 3px 3px 3px, rgb(253, 253, 253) 0px 0px 1em;
 }
 
 button {
