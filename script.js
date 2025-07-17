@@ -26,16 +26,29 @@ const ctx = canvas.getContext('2d');
 const answerEl = document.getElementById('answer');
 const btn = document.getElementById('predict-btn');
 
+function resizeCanvas() {
+  // 90vw, но не больше 400px, и квадрат
+  const size = Math.min(window.innerWidth * 0.9, 400);
+  canvas.width = size;
+  canvas.height = size;
+}
+
 function drawBall(glow = false) {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const w = canvas.width;
+  const h = canvas.height;
+  const cx = w / 2;
+  const cy = h / 2;
+  const radius = w * 0.4; // основной радиус шара
+
+  ctx.clearRect(0, 0, w, h);
 
   // Glow effect
   if (glow) {
     ctx.save();
     ctx.globalAlpha = 0.5;
-    for (let r = 120; r <= 135; r += 5) {
+    for (let r = radius; r <= radius * 1.12; r += w * 0.02) {
       ctx.beginPath();
-      ctx.arc(150, 150, r, 0, 2 * Math.PI);
+      ctx.arc(cx, cy, r, 0, 2 * Math.PI);
       ctx.fillStyle = "rgba(80,80,255,0.2)";
       ctx.fill();
     }
@@ -43,32 +56,34 @@ function drawBall(glow = false) {
   }
 
   // Main sphere
+  ctx.save();
   ctx.beginPath();
-  ctx.arc(150, 150, 120, 0, 2 * Math.PI);
+  ctx.arc(cx, cy, radius, 0, 2 * Math.PI);
   ctx.fillStyle = "#5c5cff";
   ctx.shadowColor = "#aaf";
-  ctx.shadowBlur = glow ? 50 : 30;
+  ctx.shadowBlur = glow ? w * 0.14 : w * 0.08;
   ctx.fill();
+  ctx.restore();
 
   // Gloss
   ctx.beginPath();
-  ctx.arc(110, 110, 30, 0, 2 * Math.PI);
+  ctx.arc(cx - radius * 0.33, cy - radius * 0.33, radius * 0.25, 0, 2 * Math.PI);
   ctx.fillStyle = "rgba(255,255,255,0.35)";
   ctx.fill();
 
   // Ball edge
   ctx.beginPath();
-  ctx.arc(150, 150, 120, 0, 2 * Math.PI);
+  ctx.arc(cx, cy, radius, 0, 2 * Math.PI);
   ctx.strokeStyle = "#fff";
-  ctx.lineWidth = 4;
+  ctx.lineWidth = w * 0.015;
   ctx.stroke();
 
   // Decorative stars
   for (let i = 0; i < 7; i++) {
     drawStar(
-      150 + Math.cos(i * (2 * Math.PI / 7)) * 95,
-      150 + Math.sin(i * (2 * Math.PI / 7)) * 95,
-      6, 4, 8,
+      cx + Math.cos(i * (2 * Math.PI / 7)) * radius * 0.8,
+      cy + Math.sin(i * (2 * Math.PI / 7)) * radius * 0.8,
+      6, w * 0.015, w * 0.03,
       "rgba(255,255,255,0.3)"
     );
   }
@@ -101,16 +116,33 @@ function drawStar(cx, cy, spikes, outerRadius, innerRadius, color) {
   ctx.restore();
 }
 
-drawBall();
+function showAnswer(ans) {
+  answerEl.textContent = ans;
+  answerEl.style.opacity = 1;
+}
+
+function hideAnswer() {
+  answerEl.style.opacity = 0;
+}
+
+function redraw() {
+  resizeCanvas();
+  drawBall();
+}
+
+window.addEventListener('resize', () => {
+  redraw();
+});
+
+redraw();
 
 btn.addEventListener('click', () => {
   drawBall(true);
-  answerEl.style.opacity = 0;
+  hideAnswer();
   btn.disabled = true;
   setTimeout(() => {
     const randIndex = Math.floor(Math.random() * answers.length);
-    answerEl.textContent = answers[randIndex];
-    answerEl.style.opacity = 1;
+    showAnswer(answers[randIndex]);
     btn.disabled = false;
     drawBall();
   }, 1200);
