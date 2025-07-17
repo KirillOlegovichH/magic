@@ -36,7 +36,7 @@ const btn = document.getElementById('predict-btn');
 
 function resizeCanvas() {
   // 90vw, но не больше 400px, и квадрат
-  const size = Math.min(window.innerWidth * 1.5, 600);
+  const size = Math.min(window.innerWidth * 1.5, 450);
   canvas.width = size;
   canvas.height = size;
 }
