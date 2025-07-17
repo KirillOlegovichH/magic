@@ -9,6 +9,8 @@ body {
 
 .container {
   text-align: center;
+  max-width: 100vw;
+  width: 100%;
 }
 
 #magic-ball {
@@ -17,6 +19,9 @@ body {
   display: block;
   margin-left: auto;
   margin-right: auto;
+  width: 90vw;
+  max-width: 400px;
+  height: auto;
 }
 
 .answer {
@@ -26,6 +31,8 @@ body {
   min-height: 40px;
   transition: opacity 0.5s;
   opacity: 0;
+  word-break: break-word;
+  max-width: 95vw;
 }
 
 button {
@@ -38,6 +45,7 @@ button {
   cursor: pointer;
   transition: background 0.3s;
   box-shadow: 0 2px 8px #0a0a2e70;
+  margin-bottom: 40px;
 }
 
 button:hover {
