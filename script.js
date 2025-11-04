@@ -26,13 +26,12 @@ const answers = [
   "Возможно, но не факт",
   "Не сейчас...",
   "Жди",
-  "Бухай!",
 ];
 
 const canvas = document.getElementById('magic-ball');
 const ctx = canvas.getContext('2d');
 const answerEl = document.getElementById('answer');
-const btn = document.getElementById('predict-btn');
+const btn = canvas;
 
 function resizeCanvas() {
   // 90vw, но не больше 400px, и квадрат
